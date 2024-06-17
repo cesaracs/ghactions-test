@@ -1,0 +1,35 @@
+name: GitHub Actions Demo
+
+on:
+    push:
+        branches: [ "main" ]
+    pull_request:
+        branches: [ "main" ]
+    
+    workflow_dispatch:
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v2
+
+          - name: Build
+            run: |
+                echo "Iniciando Build do Projeto."
+
+          - name: Testes Unitarios
+            run: |
+                echo "Iniciando testes unitários do Projeto."
+
+          - name: Deploy
+            if: github.event_name == 'push'  # Só faz deploy no push para main
+            run: |
+                echo "Deploy em andamento!"
+                
+          - name: Notify Deployment
+            if: github.event_name == 'push'  # Só notifica no push para main
+            run: |
+                echo "Deploy Finalizado!"      
